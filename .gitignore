@@ -1,0 +1,16 @@
+# build output
+bin/
+obj/
+publish/
+*.user
+*.suo
+.vs/
+
+# bundled third-party tools (not committed; fetch via scripts/fetch-tools.ps1)
+tools/
+BiliGet/tools/
+
+# local data / caches
+covercache/
+*.log
+*.bak

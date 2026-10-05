@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application
+    x:Class="BiliGet.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BiliGet">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="AppBg" Color="#FF1E1F22" />
+                    <SolidColorBrush x:Key="RailBg" Color="#FF1A1B1E" />
+                    <SolidColorBrush x:Key="CardBg" Color="#FF26272B" />
+                    <SolidColorBrush x:Key="CardBorder" Color="#FF34363B" />
+                    <SolidColorBrush x:Key="TextPrimary" Color="#FFF2F3F5" />
+                    <SolidColorBrush x:Key="TextDim" Color="#FF9AA0A6" />
+                    <SolidColorBrush x:Key="Accent" Color="#FF00AEEC" />
+                    <SolidColorBrush x:Key="RowHover" Color="#FF2A2C31" />
+                    <SolidColorBrush x:Key="RowPress" Color="#FF34363B" />
+                    <SolidColorBrush x:Key="FieldBg" Color="#FF1B1C20" />
+                    <SolidColorBrush x:Key="FieldBorder" Color="#FF45484F" />
+                    <!-- 覆盖 ComboBox 下拉弹层默认的“应用内 Acrylic”，改纯色避免文字发虚 -->
+                    <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="#FF26272B" />
+                    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundPointerOver" Color="#FF2A2C31" />
+                    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundPressed" Color="#FF34363B" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="AppBg" Color="#FFF4F4F6" />
+                    <SolidColorBrush x:Key="RailBg" Color="#FFE9EAEE" />
+                    <SolidColorBrush x:Key="CardBg" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="CardBorder" Color="#FFD7D9DF" />
+                    <SolidColorBrush x:Key="TextPrimary" Color="#FF1B1C1F" />
+                    <SolidColorBrush x:Key="TextDim" Color="#FF5B6068" />
+                    <SolidColorBrush x:Key="Accent" Color="#FF0097D6" />
+                    <SolidColorBrush x:Key="RowHover" Color="#FFE3E5EA" />
+                    <SolidColorBrush x:Key="RowPress" Color="#FFD7D9DF" />
+                    <SolidColorBrush x:Key="FieldBg" Color="#FFF5F6F8" />
+                    <SolidColorBrush x:Key="FieldBorder" Color="#FFC2C6CE" />
+                    <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundPointerOver" Color="#FFE3E5EA" />
+                    <SolidColorBrush x:Key="ComboBoxDropDownBackgroundPressed" Color="#FFD7D9DF" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <FontFamily x:Key="ContentControlThemeFontFamily">Microsoft YaHei UI</FontFamily>
+            <FontFamily x:Key="TextControlThemeFontFamily">Microsoft YaHei UI</FontFamily>
+
+            <!-- 强调色渐变（运行时按强调色更新两处渐变点） -->
+            <LinearGradientBrush x:Key="AccentGrad" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#FF00AEEC" Offset="0" />
+                <GradientStop Color="#FF3FC6FF" Offset="1" />
+            </LinearGradientBrush>
+
+            <Style x:Key="RailBtn" TargetType="Button">
+                <Setter Property="Width" Value="44" />
+                <Setter Property="Height" Value="44" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Foreground" Value="{ThemeResource TextDim}" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="g" Background="{TemplateBinding Background}" CornerRadius="10">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="g.Background" Value="{ThemeResource RowHover}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="g.Background" Value="{ThemeResource RowPress}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="InputBox" TargetType="TextBox" BasedOn="{StaticResource DefaultTextBoxStyle}">
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Background" Value="{ThemeResource CardBg}" />
+                <Setter Property="MinHeight" Value="34" />
+            </Style>
+
+            <Style x:Key="InputCombo" TargetType="ComboBox" BasedOn="{StaticResource DefaultComboBoxStyle}">
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Background" Value="{ThemeResource RowHover}" />
+            </Style>
+
+            <Style x:Key="ComboField" TargetType="ComboBox" BasedOn="{StaticResource DefaultComboBoxStyle}">
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Background" Value="{ThemeResource FieldBg}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource FieldBorder}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="MinHeight" Value="34" />
+                <Setter Property="Padding" Value="10,0,6,0" />
+                <Setter Property="HorizontalContentAlignment" Value="Left" />
+            </Style>
+
+            <!-- 强调色按钮：hover/press 用叠加层淡入，过渡柔和且兼容渐变背景（BasedOn 默认样式以继承圆角等） -->
+            <Style x:Key="AnimAccentButton" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="RootGrid">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+                                <Border x:Name="Overlay" Background="Black" Opacity="0" CornerRadius="{TemplateBinding CornerRadius}" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  Margin="{TemplateBinding Padding}" />
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualStateGroup.Transitions>
+                                            <VisualTransition GeneratedDuration="0:0:0.18" />
+                                            <VisualTransition From="Normal" To="PointerOver">
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="Overlay" Storyboard.TargetProperty="Opacity"
+                                                                     To="0.16" Duration="0:0:0.18" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                            <VisualTransition From="PointerOver" To="Normal">
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="Overlay" Storyboard.TargetProperty="Opacity"
+                                                                     To="0" Duration="0:0:0.18" />
+                                                </Storyboard>
+                                            </VisualTransition>
+                                        </VisualStateGroup.Transitions>
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="Overlay.Opacity" Value="0.16" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="Overlay.Opacity" Value="0.26" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <VisualState.Setters>
+                                                <Setter Target="Overlay.Opacity" Value="0" />
+                                                <Setter Target="RootGrid.Opacity" Value="0.4" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <local:BoolToVisibilityConverter x:Key="BoolToVis" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
