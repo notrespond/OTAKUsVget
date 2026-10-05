@@ -24,7 +24,7 @@
 
 ```powershell
 # 自包含发布（输出到 bin\Release\...\win-x64\publish）
-dotnet publish BiliGet\BiliGet.csproj -c Release -r win-x64
+dotnet publish BiliGet.csproj -c Release -r win-x64
 ```
 
 发布前先获取内置工具（不随仓库提交）：
@@ -36,7 +36,7 @@ powershell -ExecutionPolicy Bypass -File scripts\fetch-tools.ps1
 
 ## 目录
 
-- `BiliGet/`：WinUI 3 应用（C# / XAML）
+- 根目录：WinUI 3 应用（C# / XAML）
   - `Bili.cs`：B站 API（登录、结构、wbi 签名、playurl）
   - `YtDlp.cs`：yt-dlp / aria2c 调用与输出解析、封面缓存
   - `MainWindow.xaml(.cs)`：界面与解析 / 下载流程

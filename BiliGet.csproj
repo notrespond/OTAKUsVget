@@ -51,9 +51,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="tools\yt-dlp.exe" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="tools\aria2c.exe" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="tools\ffmpeg.exe" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="tools\yt-dlp.exe" CopyToOutputDirectory="PreserveNewest" Condition="Exists('tools\yt-dlp.exe')" />
+    <Content Include="tools\aria2c.exe" CopyToOutputDirectory="PreserveNewest" Condition="Exists('tools\aria2c.exe')" />
+    <Content Include="tools\ffmpeg.exe" CopyToOutputDirectory="PreserveNewest" Condition="Exists('tools\ffmpeg.exe')" />
     <Content Include="Assets\OTAKUsVget.ico" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets\OTAKUsVget.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
